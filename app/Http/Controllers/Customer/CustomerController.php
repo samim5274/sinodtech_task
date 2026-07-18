@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 use App\Models\Customer;
 use App\Models\SaleItem;
 use App\Models\Sale;
@@ -34,5 +34,14 @@ class CustomerController extends Controller
         return view('customer.items-list', compact(
             'saleItems',
         ));
+    }
+
+    public function customerList()
+    {
+        $customers = Customer::whereDoesntHave('sales', function ($query) {
+            $query->where('created_at', '>=', Carbon::now()->subDays(90));
+        })->get();
+
+        return view('customer.inactive-customer', compact('customers'));
     }
 }
