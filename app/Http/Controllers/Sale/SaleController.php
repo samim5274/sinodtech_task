@@ -18,7 +18,12 @@ class SaleController extends Controller
         $products = Product::where('status', 1)->where('stock_quantity', '>=', '0')->get();
         $customers = Customer::all();
 
-        return view('sale', compact('products', 'customers'));
+        $totalSales = Sale::count() + 1;
+        $invoiceNo = 'INV-' . str_pad($totalSales, 5, '0', STR_PAD_LEFT);
+
+        $saleItems = SaleItem::where('reg', $invoiceNo)->get();
+
+        return view('sale', compact('products', 'customers', 'saleItems'));
     }
 
     public function addSaleItem(Request $request)
@@ -71,5 +76,14 @@ class SaleController extends Controller
         }
 
         return back()->with('success', 'Product added successfully.');
+    }
+
+    public function deleteSaleItem($id)
+    {
+        $saleItem = SaleItem::findOrFail($id);
+
+        $saleItem->delete();
+
+        return back()->with('success', 'Product removed successfully.');
     }
 }

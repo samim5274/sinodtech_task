@@ -78,7 +78,7 @@
 
                         <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
                             <h2 class="text-lg font-bold text-gray-900">Sale Invoice Items</h2>
-                            <span id="item-count" class="text-xs bg-indigo-100 text-indigo-700 font-bold px-2.5 py-1 rounded-full">0 Items</span>
+                            <span id="item-count" class="text-xs bg-indigo-100 text-indigo-700 font-bold px-2.5 py-1 rounded-full">{{ $saleItems->count() }} Items</span>
                         </div>
 
                         <div class="flex-1 overflow-x-auto">
@@ -93,11 +93,44 @@
                                     </tr>
                                 </thead>
                                 <tbody id="invoice-items-container" class="divide-y divide-gray-100 text-sm">
-                                    <tr id="empty-state-row">
-                                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">
-                                            No products added yet. Select a product and click Add.
-                                        </td>
-                                    </tr>
+                                    @forelse($saleItems as $item)
+                                        <tr class="hover:bg-gray-50 transition-colors">
+                                            <td class="px-6 py-4">
+                                                <div class="font-bold text-gray-900">
+                                                    {{ $item->product->name ?? 'Product ID: ' . $item->product_id }}
+                                                </div>
+                                                @if(isset($item->product->sku))
+                                                    <div class="text-xs text-gray-500">{{ $item->product->sku }}</div>
+                                                @endif
+                                            </td>
+                                            <td class="px-6 py-4 text-center text-gray-600">
+                                                ৳ {{ number_format($item->unit_price, 2) }}
+                                            </td>
+                                            <td class="px-6 py-4 text-center font-semibold text-gray-900">
+                                                {{ $item->quantity }}
+                                            </td>
+                                            <td class="px-6 py-4 text-right font-bold text-gray-900">
+                                                ৳ {{ number_format($item->subtotal, 2) }}
+                                            </td>
+                                            <td class="px-6 py-4 text-center">
+                                                <form action="{{ route('sale-items.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-500 hover:text-red-700 dynamic-delete-btn">
+                                                        <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr id="empty-state-row">
+                                            <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+                                                No products added yet. Select a product and click Add.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -105,7 +138,7 @@
                         <div class="border-t border-gray-200 p-6 bg-gray-50 space-y-4">
                             <div class="flex justify-between items-center text-xl font-black text-gray-900">
                                 <span>Grand Total:</span>
-                                <span>৳ <span id="grand-total-display">0.00</span></span>
+                                <span>৳ <span id="grand-total-display">{{ number_format($saleItems->sum('subtotal'), 2) }}</span></span>
                             </div>
 
                             <button type="submit" id="complete-sale-btn" disabled class="w-full bg-indigo-600 text-white rounded-xl py-3 px-6 font-bold text-lg hover:bg-indigo-700 transition shadow-md shadow-indigo-100 disabled:bg-gray-300 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center gap-2">

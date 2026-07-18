@@ -82,10 +82,15 @@
                                     View
                                 </a>
 
-                                <button class="flex-1 bg-indigo-600 text-white py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition shadow-sm disabled:bg-gray-400 disabled:cursor-not-allowed"
-                                        {{ $product->stock_quantity < 1 || $product->status != '1' ? 'disabled' : '' }}>
-                                    Buy Now
-                                </button>
+                                @if($product->stock_quantity < 1 || $product->status != '1')
+                                    <button type="button" disabled class="flex-1 bg-gray-400 text-white py-2 rounded-md text-sm font-medium cursor-not-allowed text-center shadow-sm">
+                                        Buy Now
+                                    </button>
+                                @else
+                                    <a href="{{ route('sale.index') }}" class="flex-1 bg-indigo-600 text-white py-2 rounded-md text-sm font-medium hover:bg-indigo-700 text-center transition shadow-sm">
+                                        Buy Now
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>

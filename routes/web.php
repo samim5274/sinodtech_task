@@ -25,4 +25,5 @@ use App\Http\Controllers\Sale\SaleController;
 Route::prefix('sale')->group(function () {
     Route::get('/', [SaleController::class, 'saleView'])->name('sale.index');
     Route::post('/add-sale-item', [SaleController::class, 'addSaleItem'])->name('add.sale.item');
+    Route::delete('/sale-item-delete/{id}', [SaleController::class, 'deleteSaleItem'])->name('sale-items.destroy');
 });
