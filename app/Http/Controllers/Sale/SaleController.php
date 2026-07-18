@@ -16,7 +16,7 @@ use App\Models\Sale;
 class SaleController extends Controller
 {
     public function saleView(){
-        $products = Product::where('status', 1)->where('stock_quantity', '>=', '0')->get();
+        $products = Product::where('status', 1)->where('stock_quantity', '>', '0')->get();
         $customers = Customer::all();
         $sales = Sale::with('customer')->get();
 
@@ -94,40 +94,70 @@ class SaleController extends Controller
             'customer_id' => 'required|exists:customers,id',
         ]);
 
-        DB::transaction(function () use ($validated) {
+        try {
 
-            $totalSales = Sale::count() + 1;
-            $invoiceNo = 'INV-' . str_pad($totalSales, 5, '0', STR_PAD_LEFT);
+            DB::transaction(function () use ($validated) {
 
-            $isExist = Sale::where('invoice_no', $invoiceNo)->first();
+                $totalSales = Sale::count() + 1;
+                $invoiceNo = 'INV-' . str_pad($totalSales, 5, '0', STR_PAD_LEFT);
 
-            if($isExist){
-                return back()->with('error', 'Orver already created. Try again latter. Thanks!');
-            }
+                // Check duplicate invoice
+                if (Sale::where('invoice_no', $invoiceNo)->exists()) {
+                    throw new \Exception('Invoice already exists.');
+                }
 
-            $saleItems = SaleItem::where('reg', $invoiceNo)->get();
+                $saleItems = SaleItem::where('reg', $invoiceNo)->lockForUpdate()->get();
 
-            if($saleItems->isEmpty()) {
-                return back()->with('error', 'Sale items not found.');
-            }
+                if($saleItems->isEmpty()) {
+                    throw new \Exception('No sale items found.');
+                }
 
-            $subtotal = $saleItems->sum('subtotal');
-            $discount = $subtotal* 0.10;
-            $tax = ($subtotal * 5) / 100;
-            $grand_total = ($subtotal - $discount)+$tax;
+                // Check Stock
+                foreach ($saleItems as $item) {
 
-            Sale::create([
-                'invoice_no'    => $invoiceNo,
-                'customer_id'   => $validated['customer_id'],
-                'subtotal'      => $subtotal,
-                'discount'      => $discount,
-                'tax'           => $tax,
-                'grand_total'   => $grand_total,
-                'sale_date'     => now(),
-            ]);
+                    $product = Product::lockForUpdate()->findOrFail($item->product_id);
 
-        });
+                    if ($product->stock_quantity < $item->quantity) {
+                        throw new \Exception(
+                            "{$product->name} has only {$product->stock_quantity} item(s) in stock."
+                        );
+                    }
+                }
 
-        return redirect()->back()->with('success', 'Sale completed successfully.');
+                // Calculate Totals
+                $subtotal = $saleItems->sum('subtotal');
+                $discount = round($subtotal * 0.10, 2);
+                $tax = round($subtotal * 0.05, 2);
+                $grand_total = round($subtotal - $discount + $tax, 2);
+
+                Sale::create([
+                    'invoice_no'    => $invoiceNo,
+                    'customer_id'   => $validated['customer_id'],
+                    'subtotal'      => $subtotal,
+                    'discount'      => $discount,
+                    'tax'           => $tax,
+                    'grand_total'   => $grand_total,
+                    'sale_date'     => now(),
+                ]);
+
+                foreach ($saleItems as $item) {
+                    Product::where('id', $item->product_id)
+                        ->decrement('stock_quantity', $item->quantity);
+                }
+
+            });
+
+            return redirect()->back()->with(
+                'success',
+                'Sale completed successfully.'
+            );
+
+        } catch (\Exception $e) {
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $e->getMessage());
+        }
+
     }
 }
