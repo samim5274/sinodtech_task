@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Sale</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
@@ -24,9 +25,20 @@
                     </div>
                     <p class="text-xs text-slate-400 mt-0.5">Track purchase history, frequency, and lifecycles.</p>
                 </div>
-                <span class="text-xs bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-md border border-indigo-100">
-                    Total Customers: {{ $customers->count() }}
-                </span>
+                <div class="flex items-center gap-3">
+                    <div class="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 font-semibold px-3 py-1.5 rounded-lg border border-slate-250/60 shadow-xs text-xs">
+                        <i class="fa-solid fa-people-group"></i>
+                        <span>Total Customers:</span>
+                        <span class="bg-white px-1.5 py-0.5 rounded font-bold font-mono text-indigo-650 border border-slate-200">
+                            {{ $customers->count() }}
+                        </span>
+                    </div>
+
+                    <a href="{{ route('user-mail') }}" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-750 text-white font-medium px-3.5 py-1.5 rounded-lg text-xs shadow-sm hover:shadow transition-all duration-200 group">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Send Promotional Mail</span>
+                    </a>
+                </div>
             </div>
 
             <div class="overflow-x-auto w-full">
@@ -111,10 +123,8 @@
                                 </td>
 
                                 <td class="px-6 py-4 text-right">
-                                    <a href="{{ route('customer-purchase-list', $customer->id) }}" class="inline-flex items-center justify-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg px-3 py-1.5 font-medium text-xs transition-all gap-1.5 shadow-sm">
-                                        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-                                        </svg>
+                                    <a href="{{ route('customer-purchase-list', $customer->id) }}" class="inline-flex items-center justify-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg px-3 py-1.5 font-medium text-xs transition-all gap-1.5 shadow-sm">                                        
+                                        <i class="fa-solid fa-clock-rotate-left w-3.5 h-3.5 text-slate-400"></i>
                                         History
                                     </a>
                                 </td>
@@ -123,9 +133,7 @@
                             <tr>
                                 <td colspan="5" class="px-6 py-12 text-center text-slate-400">
                                     <div class="flex flex-col items-center justify-center gap-2">
-                                        <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                        </svg>
+                                        <i class="fa-regular fa-hourglass w-8 h-8 text-slate-300"></i>
                                         <span class="text-xs">No customer records found.</span>
                                     </div>
                                 </td>

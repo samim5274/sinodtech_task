@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Sale</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
@@ -48,9 +49,7 @@
                                 <td class="px-6 py-4">
                                     <div class="flex items-center gap-2">
                                         <span class="p-1.5 bg-indigo-50 text-indigo-600 rounded-md">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                            </svg>
+                                            <i class="fa-solid fa-file-lines"></i>
                                         </span>
                                         <span class="font-mono font-bold text-slate-800 tracking-wide">
                                             #{{ $order->invoice_no }}
@@ -82,10 +81,7 @@
 
                                 <td class="px-6 py-4 text-center">
                                     <a href="{{ route('sales.show', $order->invoice_no) }}" class="inline-flex items-center justify-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg px-3 py-1.5 font-medium text-xs transition-all gap-1.5 shadow-sm">
-                                        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                        </svg>
+                                        <i class="fa-solid fa-eye w-3.5 h-3.5 text-slate-400"></i>
                                         View Bill
                                     </a>
                                 </td>
@@ -94,9 +90,7 @@
                             <tr>
                                 <td colspan="6" class="px-6 py-12 text-center text-slate-400">
                                     <div class="flex flex-col items-center justify-center gap-2">
-                                        <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 12H4M8 16l-4-4 4-4m8 8l4-4-4-4"></path>
-                                        </svg>
+                                        <i class="fa-solid fa-left-right w-8 h-8 text-slate-300"></i>
                                         <span class="text-xs">No purchase records found for this customer.</span>
                                     </div>
                                 </td>

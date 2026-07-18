@@ -41,3 +41,14 @@ Route::prefix('customer')->group(function () {
     Route::get('/{customer_id}', [CustomerController::class, 'customerPurchaseList'])->name('customer-purchase-list');
     Route::get('/sale-view/{invoice_no}', [CustomerController::class, 'showSale'])->name('sales.show');
 });
+
+
+
+// ======================
+// Mail Routes
+// ======================
+use App\Http\Controllers\Mail\MailController;
+Route::prefix('mail')->group(function () {
+    Route::get('/', [MailController::class, 'index'])->name('user-mail');
+    Route::post('/send-mail', [MailController::class, 'sendMail'])->name('send-mail');
+});
