@@ -2,17 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('public/products');
+});
+
+// ======================
+// Product Routes
+// ======================
+use App\Http\Controllers\Product\ProductController;
+Route::prefix('public')->group(function () {
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/product/{sku}', [ProductController::class, 'showProduct']);
+});
+
+
+
+// ======================
+// Sale Routes
+// ======================
+use App\Http\Controllers\Sale\SaleController;
+Route::prefix('sale')->group(function () {
+    Route::get('/', [SaleController::class, 'saleView'])->name('sale.index');
+    Route::post('/add-sale-item', [SaleController::class, 'addSaleItem'])->name('add.sale.item');
 });
