@@ -26,4 +26,7 @@ Route::prefix('sale')->group(function () {
     Route::get('/', [SaleController::class, 'saleView'])->name('sale.index');
     Route::post('/add-sale-item', [SaleController::class, 'addSaleItem'])->name('add.sale.item');
     Route::delete('/sale-item-delete/{id}', [SaleController::class, 'deleteSaleItem'])->name('sale-items.destroy');
+
+    // Confirm sale
+    Route::post('/confimr', [SaleController::class, 'confirmSale'])->name('confirm.sale');
 });

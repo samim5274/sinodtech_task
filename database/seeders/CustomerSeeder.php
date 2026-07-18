@@ -15,7 +15,7 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (range(1, 30) as $i) {
+        foreach (range(1, 10) as $i) {
 
             Customer::create([
                 'name' => "Customer {$i}",
