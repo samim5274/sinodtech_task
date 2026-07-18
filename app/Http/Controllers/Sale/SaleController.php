@@ -145,6 +145,18 @@ class SaleController extends Controller
                         ->decrement('stock_quantity', $item->quantity);
                 }
 
+                $customer = Customer::find($validated['customer_id']);
+
+                if (!$customer) {
+                    throw new \Exception('Customer not found.');
+                }
+
+                $customer->update([
+                    'purchase_count' => $customer->purchase_count + 1,
+                    'last_purchase_at' => now(),
+                ]);
+
+
             });
 
             return redirect()->back()->with(

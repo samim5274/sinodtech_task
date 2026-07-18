@@ -30,3 +30,14 @@ Route::prefix('sale')->group(function () {
     // Confirm sale
     Route::post('/confimr', [SaleController::class, 'confirmSale'])->name('confirm.sale');
 });
+
+
+// ======================
+// Customer Routes
+// ======================
+use App\Http\Controllers\Customer\CustomerController;
+Route::prefix('customer')->group(function () {
+    Route::get('/purchase', [CustomerController::class, 'purchaseHistory'])->name('customer');
+    Route::get('/{customer_id}', [CustomerController::class, 'customerPurchaseList'])->name('customer-purchase-list');
+    Route::get('/sale-view/{invoice_no}', [CustomerController::class, 'showSale'])->name('sales.show');
+});
