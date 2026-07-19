@@ -94,8 +94,8 @@ After a successful purchase:
 Clone the repository:
 
 ```bash
-git clone https://github.com/samim5274/sinodtech_task
-cd project-name
+git clone https://github.com/samim5274/sinodtech_task.git
+cd sinodtech_task
 ```
 
 Install dependencies:
@@ -122,6 +122,22 @@ Configure database in `.env`:
 DB_DATABASE=your_database
 DB_USERNAME=root
 DB_PASSWORD=
+```
+
+## 🌱 Seed Data
+
+The project includes realistic sample data through seeders.
+
+- ProductSeeder
+- CustomerSeeder
+- EmployeeSeeder
+- SaleSeeder
+- TransactionSeeder
+
+Run:
+
+```bash
+php artisan migrate:fresh --seed
 ```
 
 Run migrations and seeders:
@@ -217,13 +233,55 @@ database/
 
 ---
 
+## Requirement Checklist
+
+| Requirement | Status |
+|------------|--------|
+| Laravel | ✅ |
+| MySQL | ✅ |
+| Blade | ✅ |
+| Product Management | ✅ |
+| Sales Recording | ✅ |
+| Stock Deduction | ✅ |
+| Prevent Insufficient Stock | ✅ |
+| Purchase History | ✅ |
+| Purchase Frequency | ✅ |
+| Last Purchase Date | ✅ |
+| Lost Customer Detection | ✅ |
+| Promotional Email | ✅ |
+| Employee Assignment | ✅ |
+| KPI Tracking | ✅ |
+| Mailtrap SMTP | ✅ |
+| HTML/PDF Invoice | ✅ |
+| README | ✅ |
+| GitHub Repository | ✅ |
+| Environment Setup | ✅ |
+| Database Migrations | ✅ |
+| Seeders | ✅ |
+| Products Seeder | ✅ |
+| Customers Seeder | ✅ |
+| Employees Seeder | ✅ |
+| Sales Seeder | ✅ |
+| Transactions Seeder | ✅ |
+
+### Final Assessment
+
+**Mandatory requirements:** **100% Complete** ✅
+
+**Bonus features:**
+- Email Invoice: ✅
+- Multi-Branch Support: ❌ (optional)
+- E-Commerce REST API: ❌ (optional)
+
+---
+
 ## 👨‍💻 Developer
 
 **Samim Hossain**
 
 GitHub: https://github.com/samim5274
 
-Portfolio: [https://shamim.deegau.com](https://samim-hossen.vercel.app/)
+Portfolio: https://samim-hossen.vercel.app/
 
 ---
 
