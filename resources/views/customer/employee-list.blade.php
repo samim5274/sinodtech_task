@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>In-Active Customer</title>
+    <title>Employee Details</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -22,12 +22,12 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="flex h-2 w-2 rounded-full bg-indigo-600"></span>
-                        <h2 class="text-base font-bold text-slate-800 uppercase tracking-wide">Inactive Customer</h2>
+                        <h2 class="text-base font-bold text-slate-800 uppercase tracking-wide">Employee List</h2>
                     </div>
-                    <p class="text-xs text-slate-400 mt-0.5">Track purchase history, frequency, and lifecycles.</p>
+                    <p class="text-xs text-slate-400 mt-0.5">Track purchase history, frequency, and life cycles.</p>
                 </div>
                 <span class="text-xs bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-md border border-indigo-100">
-                    Total Records: {{ $customers->count() }}
+                    Total Records: {{ $employees->count() }}
                 </span>
             </div>
 
@@ -35,94 +35,58 @@
                 <table class="w-full border-collapse whitespace-nowrap">
                     <thead>
                         <tr class="border-b border-slate-200 bg-slate-50 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                            <th class="px-6 py-3.5 text-left">Customer</th>
+                            <th class="px-6 py-3.5 text-left">Employee</th>
                             <th class="px-6 py-3.5 text-left">Contact</th>
-                            <th class="px-6 py-3.5 text-center">Last Purchase</th>
-                            <th class="px-6 py-3.5 text-center">Inactive Days</th>
-                            <th class="px-6 py-3.5 text-center">Status</th>
+                            <th class="px-6 py-3.5 text-center">KPI Score</th>
                             <th class="px-6 py-3.5 text-right">Action</th>
                         </tr>
                     </thead>
 
                     <tbody class="divide-y divide-slate-100 bg-white">
-                        @forelse($customers as $customer)
+                        @forelse($employees as $employee)
                             <tr class="transition hover:bg-slate-50">
-                                {{-- Customer --}}
                                 <td class="px-6 py-4">
                                     <div class="font-semibold text-slate-800">
-                                        {{ $customer->name }}
+                                        {{ $employee->name }}
                                     </div>
-
                                     <div class="mt-1 text-xs text-slate-500">
-                                        Customer #{{ str_pad($customer->id, 5, '0', STR_PAD_LEFT) }}
+                                        Employee #{{ str_pad($employee->id, 5, '0', STR_PAD_LEFT) }}
                                     </div>
                                 </td>
 
-                                {{-- Contact --}}
                                 <td class="px-6 py-4">
                                     <div class="text-sm font-medium text-slate-700">
-                                        {{ $customer->phone ?: 'N/A' }}
+                                        {{ $employee->phone ?: 'N/A' }}
                                     </div>
-
                                     <div class="mt-1 text-xs text-slate-500">
-                                        {{ $customer->email ?: 'No Email' }}
+                                        {{ $employee->email ?: 'No Email' }}
                                     </div>
                                 </td>
 
-                                {{-- Last Purchase --}}
                                 <td class="px-6 py-4 text-center">
-                                    <div class="font-medium text-slate-700">
-                                        {{ $customer->last_purchase_at->format('d M Y') }}
-                                    </div>
-
-                                    <div class="text-xs text-slate-500">
-                                        {{ $customer->last_purchase_at->format('h:i A') }}
-                                    </div>
-                                </td>
-
-                                @php
-                                    $inactiveDays = $customer->last_purchase_at?->diffInDays(now());
-                                @endphp
-
-                                {{-- Inactive Days --}}
-                                <td class="px-6 py-4 text-center">
-                                    @if($inactiveDays)
-                                        <span class="font-semibold text-red-600">
-                                            {{ $inactiveDays }} Days
-                                        </span>
-                                    @else
-                                        <span class="text-slate-400">—</span>
-                                    @endif
-                                </td>
-
-
-                                {{-- Status --}}
-                                <td class="px-6 py-4 text-center">
-                                    <span
-                                        class="inline-flex items-center rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">
-                                        ● Inactive
+                                    <span class="inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 border border-indigo-100">
+                                        {{ $employee->kpi_score ?? '0' }}
                                     </span>
                                 </td>
 
-                                {{-- Action --}}
                                 <td class="px-6 py-4 text-right">
-                                    <a href="{{ route('assign', ['customer_id' => $customer->id,'employee_id' => $employee->id,]) }}"
+                                    <a href="{{ route('customer-list', $employee->id) }}"
                                         class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700">
-                                        <i class="fa-brands fa-atlassian"></i>
-                                        Assign
+                                        <i class="fa-solid fa-user-check"></i>
+                                        Assign Customer
                                     </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-12 text-center">
+                                <td colspan="4" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center gap-2">
-                                        <i class="fa-solid fa-angle-right"></i>
+                                        <i class="fa-solid fa-users-slash text-2xl text-slate-400"></i>
                                         <p class="text-lg font-semibold text-slate-600">
-                                            No Inactive Customers
+                                            No Employees Found
                                         </p>
                                         <p class="text-sm text-slate-500">
-                                            All customers have made a purchase within the last 90 days.
+                                            There are no employees registered in the system.
                                         </p>
                                     </div>
                                 </td>

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Sale</title>
+    <title>Purchase</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
 
@@ -16,7 +17,7 @@
         @include('message')
 
         <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col">
-    
+
             <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                     <div class="flex items-center gap-2">
@@ -81,8 +82,8 @@
                                     @php
                                         $purchaseCount = $customer->purchase_count ?? 0;
                                         $lastPurchase = $customer->last_purchase_at ? \Carbon\Carbon::parse($customer->last_purchase_at) : null;
-                                        
-                                        $configDays = 90; 
+
+                                        $configDays = 90;
                                         $isLost = $lastPurchase && $lastPurchase->diffInDays(now()) >= $configDays;
                                     @endphp
 
@@ -123,7 +124,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 text-right">
-                                    <a href="{{ route('customer-purchase-list', $customer->id) }}" class="inline-flex items-center justify-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg px-3 py-1.5 font-medium text-xs transition-all gap-1.5 shadow-sm">                                        
+                                    <a href="{{ route('customer-purchase-list', $customer->id) }}" class="inline-flex items-center justify-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg px-3 py-1.5 font-medium text-xs transition-all gap-1.5 shadow-sm">
                                         <i class="fa-solid fa-clock-rotate-left w-3.5 h-3.5 text-slate-400"></i>
                                         History
                                     </a>

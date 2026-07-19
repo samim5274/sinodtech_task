@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use App\Models\Customer;
 use App\Models\SaleItem;
 use App\Models\Sale;
+use App\Models\Employee;
+use App\Models\CustomerAssignment;
 
 class CustomerController extends Controller
 {
@@ -38,10 +40,47 @@ class CustomerController extends Controller
 
     public function customerList()
     {
-        $customers = Customer::whereDoesntHave('sales', function ($query) {
-            $query->where('created_at', '>=', Carbon::now()->subDays(90));
+        $employees = Employee::with('assignments')->get();
+
+        return view('customer.employee-list', compact('employees'));
+    }
+
+    public function assignCustomer($employeeId){
+        $employee = Employee::with('assignments')->findOrFail($employeeId);
+
+        $customers = Customer::where(function ($query) {
+            $query->where('last_purchase_at')->orWhere('last_purchase_at', '<', Carbon::now()->subDays(90));
         })->get();
 
-        return view('customer.inactive-customer', compact('customers'));
+        return view('customer.inactive-customer', compact('customers', 'employee'));
+    }
+
+    public function assignCustomerToEmployee($customerId, $employee_id){
+        $customer = Customer::findOrFail($customerId);
+
+        $employee = Employee::with('assignments')->findOrFail($employee_id);
+
+        $assignment = CustomerAssignment::where('customer_id', $customerId)->first();
+
+        if ($assignment) {
+            return back()->with('warning', 'This customer has already been assigned.');
+        }
+
+        $assigned = CustomerAssignment::where('customer_id', $customer->id)
+            ->where('employee_id', $employee->id)
+            ->exists();
+
+        if ($assigned) {
+            return back()->with('warning', 'Customer has already been assigned to this employee.');
+        }
+
+        CustomerAssignment::create([
+            'customer_id'   => $customer->id,
+            'employee_id'   => $employee->id,
+            'assigned_at'   => now(),
+            'remarks'       => 'Customer assign to employee by admin.',
+        ]);
+
+        return redirect()->back()->with('success', 'Customer assign to employee');
     }
 }

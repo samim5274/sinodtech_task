@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $product->name }} - Product Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" />
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased">
 
@@ -110,18 +112,13 @@
                         <a href="{{ route('sale.index') }}"
                             class="flex-1 bg-indigo-600 border border-transparent rounded-xl py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 shadow-md shadow-indigo-100 disabled:bg-gray-300 disabled:shadow-none disabled:cursor-not-allowed"
                             {{ $product->stock_quantity < 1 || $product->status != '1' ? 'disabled' : '' }}>
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                            </svg>
+                            <i class="fa-solid fa-bag-shopping"></i>
                             {{ $product->stock_quantity > 0 && $product->status == '1' ? 'Buy Now' : 'Unavailable' }}
                         </a>
 
                         <!-- Wishlist Button -->
                         <a href="{{ route('sale.index') }}" class="py-3 px-4 rounded-xl flex items-center justify-center text-gray-400 hover:bg-gray-50 hover:text-red-500 border border-gray-200 transition">
-                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
+                            <i class="fa-regular fa-heart"></i>
                         </a>
                     </div>
                 </div>

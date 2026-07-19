@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Sale</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased">
 
@@ -17,12 +19,12 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
             <div class="lg:col-span-2 space-y-5">
-                
+
                 <form action="{{ route('add.sale.item') }}" method="POST">
                     @csrf
                     <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
                         <div class="flex flex-col md:flex-row items-end gap-3">
-                            
+
                             <div class="w-full flex-1">
                                 <label for="product_select" class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Select Product</label>
                                 <div class="relative">
@@ -33,7 +35,7 @@
                                         @endforeach
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        <i class="fa-solid fa-chevron-down w-4 h-4"></i>
                                     </div>
                                 </div>
                             </div>
@@ -45,9 +47,7 @@
 
                             <div class="w-full md:w-auto">
                                 <button type="submit" id="add-item-btn" class="w-full bg-indigo-600 text-white rounded-lg py-2 px-5 font-semibold text-sm hover:bg-indigo-700 active:transform active:scale-[0.98] transition-all flex items-center justify-center gap-2 h-[38px] shadow-sm shadow-indigo-100">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                    </svg>
+                                    <i class="fa-solid fa-cart-plus"></i>
                                     Add Item
                                 </button>
                             </div>
@@ -57,7 +57,7 @@
                 </form>
 
                 <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col">
-                    
+
                     <div class="px-5 py-3.5 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
                         <div class="flex items-center gap-2">
                             <span class="flex h-2 w-2 rounded-full bg-indigo-600"></span>
@@ -104,9 +104,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-slate-400 hover:text-red-500 transition-colors p-1 rounded hover:bg-red-50 inline-flex items-center">
-                                                    <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                    </svg>
+                                                    <i class="fa-solid fa-trash-can"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -115,7 +113,7 @@
                                     <tr id="empty-state-row">
                                         <td colspan="5" class="px-5 py-12 text-center text-slate-400">
                                             <div class="flex flex-col items-center justify-center gap-2">
-                                                <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                                                <i class="fa-solid fa-bag-shopping"></i>
                                                 <span class="text-xs">No products added yet. Select a product and click Add.</span>
                                             </div>
                                         </td>
@@ -127,7 +125,7 @@
 
                     <form action="{{ route('confirm.sale') }}" method="POST" id="sale-form" class="border-t border-slate-100 bg-slate-50/30">
                         @csrf
-                        
+
                         <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4 items-center bg-white border-t border-slate-100">
                             <div>
                                 <label for="customer_id" class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Customer Information</label>
@@ -139,21 +137,19 @@
                                         @endforeach
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        <i class="fa-solid fa-chevron-down w-4 h-4"></i>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-4 md:mt-5">
                                 <div class="text-left sm:text-right">
                                     <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Payable Amount</span>
                                     <span class="text-2xl font-black text-slate-900">৳<span id="grand-total-display">{{ number_format($saleItems->sum('subtotal'), 2) }}</span></span>
                                 </div>
-                                
+
                                 <button type="submit" id="complete-sale-btn" class="bg-emerald-600 text-white rounded-lg py-2.5 px-6 font-bold text-sm hover:bg-emerald-700 active:transform active:scale-[0.98] transition-all shadow-sm shadow-emerald-100 disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
+                                    <i class="fa-regular fa-calendar-check"></i>
                                     Complete Checkout
                                 </button>
                             </div>
@@ -165,7 +161,7 @@
 
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
-                    
+
                     <div class="px-5 py-3.5 border-b border-slate-100 bg-slate-50/50">
                         <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wide">Recent Invoices</h2>
                     </div>
@@ -204,7 +200,7 @@
 
                 </div>
             </div>
-            
+
         </div>
 
     </main>

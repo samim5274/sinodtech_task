@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Sale</title>
+    <title>User Mail</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col">
 
@@ -16,7 +17,7 @@
         @include('message')
 
         <div class="w-full max-w-2xl bg-white rounded-2xl border border-slate-200/80 shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-            
+
             <div class="px-6 py-5 border-b border-slate-100 bg-linear-to-r from-slate-50/80 to-slate-50/30 flex items-center gap-3.5">
                 <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center border border-indigo-100/80 shadow-xs">
                     <i class="fa-regular fa-envelope text-lg"></i>
@@ -35,13 +36,13 @@
                         Email Subject <span class="text-rose-500">*</span>
                     </label>
                     <div class="relative">
-                        <input 
-                            type="text" 
-                            id="subject" 
-                            name="subject" 
-                            required 
+                        <input
+                            type="text"
+                            id="subject"
+                            name="subject"
+                            required
                             value="🎉 Exclusive Offer: Enjoy 20% OFF on Your Next Purchase!"
-                            placeholder="e.g., Exclusive 20% Discount Just For You!" 
+                            placeholder="e.g., Exclusive 20% Discount Just For You!"
                             class="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all font-medium shadow-2xs"
                         />
                     </div>
@@ -51,12 +52,12 @@
                     <label for="body" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                         Mail Body / Message <span class="text-rose-500">*</span>
                     </label>
-                    <textarea 
-                        id="body" 
-                        name="body" 
-                        rows="10" 
-                        required 
-                        placeholder="Write your email content here..." 
+                    <textarea
+                        id="body"
+                        name="body"
+                        rows="10"
+                        required
+                        placeholder="Write your email content here..."
                         class="w-full px-4 py-3 bg-white border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all leading-relaxed resize-y shadow-2xs"
                     >Dear Valued Customer,
 
@@ -73,15 +74,15 @@ Customer Success Team</textarea>
                 </div>
 
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
-                    <button 
-                        type="button" 
+                    <button
+                        type="button"
                         class="px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 rounded-lg text-xs font-semibold tracking-wide transition-all shadow-xs cursor-pointer"
                     >
                         Cancel
                     </button>
-                    
-                    <button 
-                        type="submit" 
+
+                    <button
+                        type="submit"
                         class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-lg text-xs tracking-wide shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer"
                     >
                         <i class="fa-regular fa-paper-plane"></i>

@@ -19,6 +19,10 @@ class Customer extends Model
         'last_purchase_at',
     ];
 
+    protected $casts = [
+        'last_purchase_at' => 'datetime',
+    ];
+
     public function sales()
     {
         return $this->hasMany(Sale::class);

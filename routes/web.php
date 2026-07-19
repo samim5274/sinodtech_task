@@ -28,7 +28,7 @@ Route::prefix('sale')->group(function () {
     Route::delete('/sale-item-delete/{id}', [SaleController::class, 'deleteSaleItem'])->name('sale-items.destroy');
 
     // Confirm sale
-    Route::post('/confimr', [SaleController::class, 'confirmSale'])->name('confirm.sale');
+    Route::post('/confirm', [SaleController::class, 'confirmSale'])->name('confirm.sale');
 });
 
 
@@ -38,7 +38,13 @@ Route::prefix('sale')->group(function () {
 use App\Http\Controllers\Customer\CustomerController;
 Route::prefix('customer')->group(function () {
     Route::get('/purchase', [CustomerController::class, 'purchaseHistory'])->name('customer');
-    Route::get('/assign', [CustomerController::class, 'customerList'])->name('assign.customer');
+    Route::get('/employee', [CustomerController::class, 'customerList'])->name('employee.list');
+
+    Route::prefix('assign')->group(function () {
+        Route::get('/customer-list/{employee_id}', [CustomerController::class, 'assignCustomer'])->name('customer-list');
+        Route::get('/customer-assign/{customer_id}/{employee_id}', [CustomerController::class, 'assignCustomerToEmployee'])->name('assign');
+    });
+
     Route::get('/{customer_id}', [CustomerController::class, 'customerPurchaseList'])->name('customer-purchase-list');
     Route::get('/sale-view/{invoice_no}', [CustomerController::class, 'showSale'])->name('sales.show');
 });
