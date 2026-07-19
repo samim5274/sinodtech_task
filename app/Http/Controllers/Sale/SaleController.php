@@ -12,6 +12,8 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\SaleItem;
 use App\Models\Sale;
+use App\Models\Employee;
+use App\Models\CustomerAssignment;
 
 class SaleController extends Controller
 {
@@ -130,7 +132,7 @@ class SaleController extends Controller
                 $tax = round($subtotal * 0.05, 2);
                 $grand_total = round($subtotal - $discount + $tax, 2);
 
-                Sale::create([
+                $sale = Sale::create([
                     'invoice_no'    => $invoiceNo,
                     'customer_id'   => $validated['customer_id'],
                     'subtotal'      => $subtotal,
@@ -156,6 +158,12 @@ class SaleController extends Controller
                     'last_purchase_at' => now(),
                 ]);
 
+                $assignment = CustomerAssignment::where('customer_id', $sale->customer_id)->first();
+
+                if ($assignment) {
+                    Employee::where('id', $assignment->employee_id)
+                        ->increment('kpi_score');
+                }
 
             });
 

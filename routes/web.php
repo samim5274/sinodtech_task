@@ -41,8 +41,10 @@ Route::prefix('customer')->group(function () {
     Route::get('/employee', [CustomerController::class, 'customerList'])->name('employee.list');
 
     Route::prefix('assign')->group(function () {
+        Route::get('/list', [CustomerController::class, 'customerAssignList'])->name('customer-assign-list');
         Route::get('/customer-list/{employee_id}', [CustomerController::class, 'assignCustomer'])->name('customer-list');
         Route::get('/customer-assign/{customer_id}/{employee_id}', [CustomerController::class, 'assignCustomerToEmployee'])->name('assign');
+        Route::delete('/delete/{id}', [CustomerController::class, 'assignDestroy'])->name('assignments.destroy');
     });
 
     Route::get('/{customer_id}', [CustomerController::class, 'customerPurchaseList'])->name('customer-purchase-list');

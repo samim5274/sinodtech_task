@@ -83,4 +83,18 @@ class CustomerController extends Controller
 
         return redirect()->back()->with('success', 'Customer assign to employee');
     }
+
+    public function customerAssignList(){
+        $assignEmployeeAndCustomer = CustomerAssignment::with(['customer','employee'])->get();
+
+        return view('customer.assign-list', compact('assignEmployeeAndCustomer'));
+    }
+
+    public function assignDestroy($id){
+        $assignment = CustomerAssignment::findOrFail($id);
+
+        $assignment->delete();
+
+        return back()->with('success', 'Customer assignment removed successfully.');
+    }
 }
