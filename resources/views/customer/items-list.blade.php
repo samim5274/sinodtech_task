@@ -41,9 +41,9 @@
                 <a href="{{ url()->previous() }}" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50">
                     <i class="fa-solid fa-arrow-left"></i> Back
                 </a>
-                <a href="{{ route('payment.view', $saleItems[0]->reg) }}" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50">
+                <!-- <a href="{{ route('payment.view', $saleItems[0]->reg) }}" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50">
                     <i class="fa-solid fa-bank"></i> Pay Now
-                </a>
+                </a> -->
             </div>
         </div>
 
@@ -135,7 +135,7 @@
             <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
                 <div>
                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                        <i class="fa-solid fa-shield-check"></i> Settlement Proof
+                        <i class="fa-solid fa-shield-halved"></i> Settlement Proof
                     </h4>
 
                     @if($transaction)
@@ -161,7 +161,7 @@
                                     </span>
                                 @else
                                     <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-[10px] font-bold text-amber-700 border border-amber-100">
-                                        ● {{ $transaction->payment_status }}
+                                        ● {{ ['paid' => 'Paid', 'pending' => 'Pending', 'failed' => 'Failed'][$transaction->payment_status] ?? 'N/A' }}
                                     </span>
                                 @endif
                                 <span class="text-[10px] font-medium text-slate-400">
@@ -172,7 +172,7 @@
                     @else
                         <div class="flex flex-col items-center justify-center py-6 text-center">
                             <div class="h-10 w-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 border border-dashed border-slate-200 mb-2">
-                                <i class="fa-solid fa-money-bill-transfer-slash text-base"></i>
+                                <i class="fa-solid fa-money-bill-transfer text-slate-400"></i>
                             </div>
                             <p class="text-xs font-semibold text-slate-400">No Receipt Found</p>
                         </div>
