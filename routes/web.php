@@ -69,6 +69,7 @@ Route::prefix('mail')->group(function () {
 // ======================
 use App\Http\Controllers\Transaction\TransactionController;
 Route::prefix('payment')->group(function () {
+    Route::get('/history', [TransactionController::class, 'transactionHistory'])->name('transaction-history');
     Route::get('/{reg}', [TransactionController::class, 'index'])->name('payment.view');
     Route::post('/store', [TransactionController::class, 'store'])->name('payments.store');
 });

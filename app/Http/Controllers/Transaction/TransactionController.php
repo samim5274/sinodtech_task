@@ -25,6 +25,13 @@ class TransactionController extends Controller
         return view('payment.payment-view', compact('saleItems', 'sale'));
     }
 
+    public function transactionHistory()
+    {
+        $transactions = Transaction::latest()->paginate(7);
+
+        return view('payment.transaction-history', compact('transactions'));
+    }
+
     public function store(Request $request) {
         $validated = $request->validate([
             'sale_id' => 'required|exists:sales,id',
