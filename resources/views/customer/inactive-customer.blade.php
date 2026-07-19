@@ -21,6 +21,9 @@
             <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                     <div class="flex items-center gap-2">
+                        <a href="{{ url()->previous() }}" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </a>
                         <span class="flex h-2 w-2 rounded-full bg-indigo-600"></span>
                         <h2 class="text-base font-bold text-slate-800 uppercase tracking-wide">Inactive Customer</h2>
                     </div>

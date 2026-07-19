@@ -61,3 +61,14 @@ Route::prefix('mail')->group(function () {
     Route::get('/', [MailController::class, 'index'])->name('user-mail');
     Route::post('/send-mail', [MailController::class, 'sendMail'])->name('send-mail');
 });
+
+
+
+// ======================
+// Transaction Routes
+// ======================
+use App\Http\Controllers\Transaction\TransactionController;
+Route::prefix('payment')->group(function () {
+    Route::get('/{reg}', [TransactionController::class, 'index'])->name('payment.view');
+    Route::post('/store', [TransactionController::class, 'store'])->name('payments.store');
+});

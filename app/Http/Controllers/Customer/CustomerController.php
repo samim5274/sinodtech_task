@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\SaleItem;
 use App\Models\Sale;
 use App\Models\Employee;
+use App\Models\Transaction;
 use App\Models\CustomerAssignment;
 
 class CustomerController extends Controller
@@ -32,9 +33,10 @@ class CustomerController extends Controller
 
     public function showSale($reg) {
         $saleItems = SaleItem::with('product')->where('reg', $reg)->get();
-
+        $sale = Sale::with('customer', 'transaction')->where('invoice_no', $reg)->first();
+        $transaction = Transaction::where('sale_id', $sale->id)->first();
         return view('customer.items-list', compact(
-            'saleItems',
+            'saleItems', 'sale', 'transaction'
         ));
     }
 

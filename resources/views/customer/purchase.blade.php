@@ -24,9 +24,12 @@
                         <span class="flex h-2 w-2 rounded-full bg-indigo-600"></span>
                         <h2 class="text-base font-bold text-slate-800 uppercase tracking-wide">Customer Purchase Directory</h2>
                     </div>
-                    <p class="text-xs text-slate-400 mt-0.5">Track purchase history, frequency, and lifecycles.</p>
+                    <p class="text-xs text-slate-400 mt-0.5">Track purchase history, frequency, and life cycles.</p>
                 </div>
                 <div class="flex items-center gap-3">
+                     <a href="{{ url()->previous() }}" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                    </a>
                     <div class="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 font-semibold px-3 py-1.5 rounded-lg border border-slate-250/60 shadow-xs text-xs">
                         <i class="fa-solid fa-people-group"></i>
                         <span>Total Customers:</span>
