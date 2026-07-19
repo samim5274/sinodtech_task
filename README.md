@@ -94,7 +94,7 @@ After a successful purchase:
 Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/project-name.git
+git clone https://github.com/samim5274/sinodtech_task
 cd project-name
 ```
 
@@ -217,27 +217,13 @@ database/
 
 ---
 
-## 📸 Screenshots
-
-Add screenshots here:
-
-* Dashboard
-* Product Management
-* Sales Page
-* CRM Module
-* Lost Customer List
-* KPI Dashboard
-* Invoice Email
-
----
-
 ## 👨‍💻 Developer
 
 **Samim Hossain**
 
 GitHub: https://github.com/samim5274
 
-Portfolio: https://shamim.deegau.com
+Portfolio: [https://shamim.deegau.com](https://samim-hossen.vercel.app/)
 
 ---
 
